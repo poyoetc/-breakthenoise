@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BREAK THE NOISE — scene & more</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --dark: #1a1a1a;
+      --red: #e8001a;
+      --white: #f0ede8;
+      --gray: #888;
+      --border: #2a2a2a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      /* Subtle grain texture */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── HEADER ─────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .site-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+    .site-title:hover { color: var(--red); }
+
+    .site-title span {
+      color: var(--red);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width 0.2s;
+    }
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { width: 100%; }
+
+    /* ─── TAGLINE STRIP ──────────────────────── */
+    .tagline-strip {
+      background: var(--red);
+      padding: 6px 2rem;
+      overflow: hidden;
+    }
+
+    .tagline-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tagline-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      white-space: nowrap;
+      color: var(--black);
+    }
+
+    .tagline-scroll {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: marquee 20s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── HERO / FEATURED ────────────────────── */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .hero-main {
+      grid-row: span 2;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    .hero-main img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      filter: grayscale(20%);
+    }
+    .hero-main:hover img { transform: scale(1.03); filter: grayscale(0%); }
+
+    .hero-main-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    }
+
+    .hero-main-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      background: var(--red);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-main-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .hero-main-content h2 a:hover { color: var(--red); transition: color 0.2s; }
+
+    .post-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* Sidebar cards in hero */
+    .hero-side {
+      background: var(--off-black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-side-card {
+      display: flex;
+      gap: 0;
+      flex: 1;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .hero-side-card:last-child { border-bottom: none; }
+    .hero-side-card:hover { background: var(--dark); }
+
+    .hero-side-card img {
+      width: 110px;
+      min-width: 110px;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.3s;
+    }
+    .hero-side-card:hover img { filter: grayscale(0%); }
+
+    .hero-side-card-text {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .hero-side-card-text h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+    }
+    .hero-side-card-text h3 a:hover { color: var(--red); transition: color 0.2s; }
+
+    /* ─── SECTION DIVIDERS ───────────────────── */
+    .section-header {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+
+    .section-header-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-header-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 2px 8px;
+    }
+
+    /* ─── ARTICLE GRID ───────────────────────── */
+    .article-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .article-card {
+      background: var(--off-black);
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .article-card:hover { background: var(--dark); }
+
+    .article-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(25%);
+      transition: filter 0.3s, transform 0.4s ease;
+    }
+    .article-card:hover .article-card-img {
+      filter: grayscale(0%);
+      transform: scale(1.02);
+    }
+
+    .article-card-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .article-card-body {
+      padding: 1rem 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .article-card-body h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .article-card-body h3 a:hover { color: var(--red); transition: color 0.2s; }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    footer {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand .site-title {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-col p, .footer-col a {
+      font-size: 0.85rem;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 0.3rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--red); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: var(--border);
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── VERTICAL TICKER (LEFT SIDEBAR) ────── */
+    .layout-with-ticker {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ─── REVIEW SCORE BADGE ─────────────────── */
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--red);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--black);
+      position: absolute;
+      top: 0.8rem; right: 0.8rem;
+    }
+
+    /* ─── HOVER UNDERLINE LINKS ──────────────── */
+    .read-more {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+    .read-more::after { content: '→'; }
+    .read-more:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-main { grid-row: span 1; }
+      .hero-side { flex-direction: row; }
+      .article-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .article-grid { grid-template-columns: 1fr; }
+      .header-inner { padding: 0 1rem; }
+      nav { gap: 1rem; }
+    }
+
+    /* ─── PAGE LOAD ANIMATION ────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero { animation: fadeUp 0.6s ease both; }
+    .section-header { animation: fadeUp 0.6s 0.1s ease both; }
+    .article-grid { animation: fadeUp 0.6s 0.2s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="site-title" href="#">BREAK<span>THE</span>NOISE</a>
+    <nav>
+      <a href="#">Reseñas</a>
+      <a href="#">Conciertos</a>
+      <a href="#">Revisit</a>
+      <a href="#">About Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- RED TICKER STRIP -->
+<div class="tagline-strip">
+  <div class="tagline-inner">
+    <span class="tagline-label">SCENE &amp; MORE</span>
+    <span class="tagline-scroll">
+      Gracie Abrams &nbsp;·&nbsp; Knocked Loose &nbsp;·&nbsp; Black Country New Road &nbsp;·&nbsp; Faye Webster &nbsp;·&nbsp; Turnstile &nbsp;·&nbsp; Mineral &nbsp;·&nbsp; Hardcore &nbsp;·&nbsp; Post-rock &nbsp;·&nbsp; Indie &nbsp;·&nbsp; Desde Monterrey, MX &nbsp;·&nbsp;
+      Gracie Abrams &nbsp;·&nbsp; Knocked Loose &nbsp;·&nbsp; Black Country New Road &nbsp;·&nbsp; Faye Webster &nbsp;·&nbsp; Turnstile &nbsp;·&nbsp; Mineral &nbsp;·&nbsp; Hardcore &nbsp;·&nbsp; Post-rock &nbsp;·&nbsp; Indie &nbsp;·&nbsp; Desde Monterrey, MX &nbsp;·&nbsp;
+    </span>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<div class="hero">
+  <div class="hero-grid">
+
+    <!-- FEATURED POST -->
+    <div class="hero-main">
+      <a href="https://breakthenoisemx.wordpress.com/2025/09/16/knocked-loose-la-construccion-de-la-catapulta/">
+        <img src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/09/knocked-loose-outbreak-fest-2025-header-credit-nat-wood.jpg?w=1024" alt="Knocked Loose">
+      </a>
+      <div class="hero-main-overlay"></div>
+      <div class="hero-main-content">
+        <div class="tag-pill">Conciertos · Hardcore</div>
+        <h2><a href="https://breakthenoisemx.wordpress.com/2025/09/16/knocked-loose-la-construccion-de-la-catapulta/">Knocked Loose. La construcción de la catapulta.</a></h2>
+        <span class="post-date">16 septiembre 2025</span>
+      </div>
+    </div>
+
+    <!-- SIDE CARDS -->
+    <div class="hero-side">
+      <div class="hero-side-card">
+        <img src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/12/image.png?w=300" alt="Gracie Abrams">
+        <div class="hero-side-card-text">
+          <div class="tag-pill" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:2px 6px;font-size:0.6rem;">Pop · Reseña</div>
+          <h3><a href="https://breakthenoisemx.wordpress.com/2025/12/27/gracie-abrams-el-secreto-de-todos/">Gracie Abrams. El secreto de todos.</a></h3>
+          <span class="post-date">27 dic 2025</span>
+        </div>
+      </div>
+      <div class="hero-side-card">
+        <img src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/08/bcnr.jpg?w=300" alt="BCNR">
+        <div class="hero-side-card-text">
+          <div class="tag-pill" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:2px 6px;font-size:0.6rem;">Brit · Rock</div>
+          <h3><a href="https://breakthenoisemx.wordpress.com/2025/08/06/black-country-new-road-ants-from-up-there-el-disco-que-casi-no-fue/">Black Country, New Road — «Ants From Up There»</a></h3>
+          <span class="post-date">6 ago 2025</span>
+        </div>
+      </div>
+      <div class="hero-side-card">
+        <img src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/07/faye-blue-lentes.jpg?w=300" alt="Faye Webster">
+        <div class="hero-side-card-text">
+          <div class="tag-pill" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:2px 6px;font-size:0.6rem;">Indie · Album</div>
+          <h3><a href="https://breakthenoisemx.wordpress.com/2025/07/22/faye-webster-la-partitura-del-ser/">Faye Webster. La partitura del ser.</a></h3>
+          <span class="post-date">22 jul 2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LO MÁS RECIENTE -->
+<div class="section-header">
+  <h2>Lo Más Reciente</h2>
+  <div class="section-header-line"></div>
+  <span class="section-header-tag">Todas las reseñas</span>
+</div>
+
+<div class="article-grid">
+
+  <div class="article-card">
+    <div class="article-card-img-wrap">
+      <img class="article-card-img" src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/07/photo-coverage-of-the-free-turnstile-benefit-show-for-v0-n44h3yh8wg0f1.jpg?w=800" alt="Turnstile">
+    </div>
+    <div class="article-card-body">
+      <div class="tag-pill">Hardcore · Punk</div>
+      <h3><a href="https://breakthenoisemx.wordpress.com/2025/07/21/turnstile-summer-el-verano-que-el-hardcore-se-volvio-para-todos/">Turnstile Summer: El verano que el hardcore se volvió para todos.</a></h3>
+      <span class="post-date">21 julio 2025</span>
+      <a class="read-more" href="https://breakthenoisemx.wordpress.com/2025/07/21/turnstile-summer-el-verano-que-el-hardcore-se-volvio-para-todos/">Leer más</a>
+    </div>
+  </div>
+
+  <div class="article-card">
+    <div class="article-card-img-wrap">
+      <img class="article-card-img" src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/07/whatsapp-image-2025-07-17-at-9.27.43-pm-1.jpeg?w=600" alt="Mineral">
+    </div>
+    <div class="article-card-body">
+      <div class="tag-pill">Revisit · Emo</div>
+      <h3><a href="https://breakthenoisemx.wordpress.com/2025/07/20/revisit-the-power-of-failing-mineral/">Revisit: The Power of Failing — Mineral.</a></h3>
+      <span class="post-date">20 julio 2025</span>
+      <a class="read-more" href="https://breakthenoisemx.wordpress.com/2025/07/20/revisit-the-power-of-failing-mineral/">Leer más</a>
+    </div>
+  </div>
+
+  <div class="article-card">
+    <div class="article-card-img-wrap">
+      <img class="article-card-img" src="https://breakthenoisemx.wordpress.com/wp-content/uploads/2025/12/image.png?w=800" alt="Gracie Abrams">
+    </div>
+    <div class="article-card-body">
+      <div class="tag-pill">Pop · Reseña</div>
+      <h3><a href="https://breakthenoisemx.wordpress.com/2025/12/27/gracie-abrams-el-secreto-de-todos/">Gracie Abrams. El secreto de todos.</a></h3>
+      <span class="post-date">27 dic 2025</span>
+      <a class="read-more" href="https://breakthenoisemx.wordpress.com/2025/12/27/gracie-abrams-el-secreto-de-todos/">Leer más</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="site-title" href="#">BREAK<span style="color:var(--red)">THE</span>NOISE</a>
+      <p>Revista digital de música independiente.<br>Reseñas, conciertos y cultura desde<br>Monterrey, NL, México.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Secciones</h4>
+      <a href="#">Reseñas de Discos</a>
+      <a href="#">Conciertos</a>
+      <a href="#">Revisit</a>
+      <a href="#">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <p>@breakthenoise.mx</p>
+      <a href="#">Instagram</a>
+      <p style="margin-top:1rem;font-size:0.75rem;">© Agard &amp; Bolding</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Break The Noise — Scene &amp; More</p>
+    <p>Monterrey · MX · 2025</p>
+  </div>
+</footer>
+
+</body>
+</html>
